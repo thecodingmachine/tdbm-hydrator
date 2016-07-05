@@ -9,6 +9,7 @@ class FixtureA
     private $one;
     private $two;
     private $three;
+    private $four;
 
     /**
      * FixtureA constructor.
@@ -52,7 +53,23 @@ class FixtureA
      */
     public function setThree($three)
     {
-        $this->three = $three;
+        throw new \Exception('This should never be called.');
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFour()
+    {
+        return $this->four;
+    }
+
+    /**
+     * @param mixed $four
+     */
+    public function setFour($four)
+    {
+        $this->four = $four;
+    }
+    
 }
