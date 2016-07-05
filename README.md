@@ -17,3 +17,13 @@ Unlike most existing hydrators that need an object instance to be filled, the *t
 
 Note that this package is completely standalone and does not need TDBM or Mouf to run. Still, this hydrator is known to work very well with TDBM generated beans (hence the name).
 
+Installation
+============
+
+```
+composer require mouf/tdbm-hydrator
+```
+
+Usage
+=====
+
