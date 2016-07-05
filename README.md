@@ -27,3 +27,79 @@ composer require mouf/tdbm-hydrator
 Usage
 =====
 
+Let's assume you have a simple `Product` class:
+
+```php
+class Product
+{
+    private $name;
+    private $price;
+    private $inStock;
+
+    public function __construct(string $name, float $price)
+    {
+        $this->name = $name;
+        $this->price = $price;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function setPrice(float $price)
+    {
+        $this->price = $price;
+    }
+
+    public function setInStock(bool $inStock)
+    {
+        $this->inStock = $inStock;
+    }
+
+    // Let's assume we have getters too...
+}
+```
+
+Now, I have this PHP array I want to turn into an object:
+
+```php
+$productAsArray = [
+    'name' => 'My product',
+    'price' => '99',
+    'in_stock' => true
+]
+```
+
+Creating a new hydrated object
+------------------------------
+
+I can create an object ex-nihilo, using the following code:
+
+```php
+$hydrator = new TdbmHydrator();
+
+$product = $hydrator->hydrateNewObject([
+    'name' => 'My product',
+    'price' => '99',
+    'in_stock' => true
+], Product::class);
+```
+
+Notice that:
+
+- the `TdbmHydrator` will map each item of the array to the constructor arguments or the setters
+- the `TdbmHydrator` can sort out differences between camel-case and underscored names (for instance, it can map `in_stock` to `setInStock()`)
+
+Hydrating an existing object
+----------------------------
+
+I can also fill an existing object with values from an array. In this case, only setters are called:
+
+```php
+$product = new Project('My product', 99);
+
+$hydrator->hydrateObject([
+    'in_stock' => true
+], $product);
+```
